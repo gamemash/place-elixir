@@ -35,7 +35,7 @@ defmodule Place.Server do
   end
 
   def handle_call(:board, _from, log) do
-    board = Enum.reduce(log, empty_board(), fn pixel, board ->
+    board = log |> Enum.reverse |> Enum.reduce(empty_board(), fn pixel, board ->
       List.replace_at(board, pixel.x + pixel.y * @width, pixel.color)
     end)
     {:reply, {:ok, board}, log}

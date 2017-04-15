@@ -10,6 +10,15 @@ defmodule PlaceTest do
     assert Enum.at(board, 0) == 10
   end
 
+  test "last pixel wins" do
+    {:ok, pid} = Place.Server.start_link
+
+    Place.Server.set_pixel(pid, %Place.Pixel{color: 10})
+    Place.Server.set_pixel(pid, %Place.Pixel{color: 11})
+    {:ok, board} = GenServer.call(pid, :board)
+    assert Enum.at(board, 0) == 11
+  end
+
   test "clear history" do
     {:ok, pid} = Place.Server.start_link
 
