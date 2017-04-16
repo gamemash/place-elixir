@@ -1,4 +1,6 @@
 <h1>Place</h1>
 <div id="canvas-container">
-  <canvas id="place-canvas" style="border: 1px solid black;"></canvas>
+  <button onclick="place.clearBoard()">Clear board</button>
+  <button onclick="place.clearHistory()">Clear history</button>
+  <canvas id="place-canvas" width="640" height="320" ></canvas>
 </div>
