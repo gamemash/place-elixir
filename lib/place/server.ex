@@ -64,6 +64,6 @@ defmodule Place.Server do
   end
 
   defp empty_board() do
-    for _ <- 0..(@width - 1), _ <- 0..(@height - 1), do: 0
+    for _ <- 0..(@width - 1), _ <- 0..(@height - 1), do: 2
   end
 end

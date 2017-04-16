@@ -1,1 +1,7 @@
 /* This file is for your main application css. */
+
+#place-canvas {
+  width:  640px;
+  height: 320px;
+  margin: 0px;
+}

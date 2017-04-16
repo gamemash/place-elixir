@@ -1,3 +1,4 @@
 <h1>Place</h1>
-<div class="row marketing">
+<div id="canvas-container">
+  <canvas id="place-canvas" style="border: 1px solid black;"></canvas>
 </div>
