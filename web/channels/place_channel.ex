@@ -22,6 +22,7 @@ defmodule Place.PlaceChannel do
 
     case Server.set_pixel(@board, pixel) do
       :ok ->
+        broadcast! socket, "pixel", %{pixel: pixel}
         {:reply, {:ok, %{pixel: pixel}}, socket}
       :error ->
         {:reply, {:error}, socket}

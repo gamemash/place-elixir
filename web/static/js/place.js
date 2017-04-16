@@ -23,6 +23,10 @@ function Place(channel){
     .receive("ok", resp => { this.getBoard() } )
     .receive("error", resp => { console.log("Unable to join", resp) })
 
+  this.channel.on("pixel", payload => {
+    this.drawPixel(payload.pixel);
+  });
+
 }
 
 Place.prototype = {
@@ -53,9 +57,7 @@ Place.prototype = {
     this.updatePixel({x: Math.floor(location.x), y: Math.floor(location.y), color: 0});
   },
   updatePixel: function(pixel){
-    this.channel.push("update_pixel", {pixel: pixel})
-      .receive("ok", resp => { this.drawPixel(pixel)})
-      .receive("error", resp => { console.log("error", resp) })
+    this.channel.push("update_pixel", {pixel: pixel});
   },
   clearBoard: function(){
     this.channel.push("clear_board")
