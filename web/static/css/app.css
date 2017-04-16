@@ -4,3 +4,15 @@
   margin: 0px;
   border: 1px solid black;
 }
+
+.color-btn {
+  width: 16px;
+  height: 16px;
+  padding: 0px;
+  border: 1px solid black;
+  margin: 1px;
+}
+
+.color-btn.active {
+  border: 1px solid red;
+}

@@ -1,6 +1,8 @@
 <h1>Place</h1>
 <div id="canvas-container">
-  <button onclick="place.clearBoard()">Clear board</button>
-  <button onclick="place.clearHistory()">Clear history</button>
+  <!--<button onclick="place.clearBoard()">Clear board</button> -->
+  <!--<button onclick="place.clearHistory()">Clear history</button>-->
+  <span id="color-picker-container">
+  </span>
   <canvas id="place-canvas" width="640" height="320" ></canvas>
 </div>

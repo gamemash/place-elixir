@@ -17,6 +17,7 @@ function Place(channel){
 
   this.canvas.addEventListener("click", this.onclick.bind(this));
   this.context = this.canvas.getContext("2d");
+  this.addButtons();
 
   this.channel = socket.channel("place:board", {})
   this.channel.join()
@@ -27,9 +28,25 @@ function Place(channel){
     this.drawPixel(payload.pixel);
   });
 
+  this.currentColor = 0;
 }
 
 Place.prototype = {
+  addButtons: function(){
+    var container = document.getElementById("color-picker-container");
+    var i;
+    for (i in this.colors){
+      (function(i) {
+        var btn = document.createElement("button");
+        btn.className = "color-btn btn";
+        btn.style = "background-color: " + this.colors[i] + ";";
+        btn.onclick = function(){ var color = i; this.setColor(color); }.bind(this);
+        container.appendChild(btn);
+      }).bind(this)(i);
+    }
+
+    //<button class="color-btn btn" onclick="place.currentColor = <%=i%>"></button>
+  },
   getBoard: function(){
     this.channel.push("get_board")
       .receive("ok", resp => { this.drawBoard(resp.board)})
@@ -51,10 +68,10 @@ Place.prototype = {
   },
   onclick: function(event){
     var location = {
-      x: event.offsetX / this.pixel.width,
-      y: event.offsetY / this.pixel.height
+      x: Math.floor(event.offsetX / this.pixel.width),
+      y: Math.floor(event.offsetY / this.pixel.height)
     };
-    this.updatePixel({x: Math.floor(location.x), y: Math.floor(location.y), color: 0});
+    this.updatePixel({x: location.x, y: location.y, color: this.currentColor});
   },
   updatePixel: function(pixel){
     this.channel.push("update_pixel", {pixel: pixel});
@@ -66,6 +83,9 @@ Place.prototype = {
   clearHistory: function(){
     this.channel.push("clear_history")
       .receive("ok", resp => { this.getBoard(); });
+  },
+  setColor: function(color){
+    this.currentColor = color;
   }
 }
 
