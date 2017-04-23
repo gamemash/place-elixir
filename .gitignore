@@ -6,6 +6,11 @@
 
 # The directory Mix downloads your dependencies sources to.
 /deps
+/db
+/node_modules
+/priv/static
+/config/prod.secret.exs
+/rel
 
 # Where 3rd-party dependencies like ExDoc output generated docs.
 /doc

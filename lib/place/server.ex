@@ -3,8 +3,8 @@ defmodule Place.Server do
 
   alias Place.Pixel
 
-  @width  10
-  @height 10
+  @width  100
+  @height 100
 
   def start_link do
     GenServer.start_link(__MODULE__, :ok, [])
@@ -59,11 +59,11 @@ defmodule Place.Server do
   end
 
   def handle_cast(:clear_board, state) do
-    clearPixels = for x <- 0..(@width - 1), y <- 0..(@height - 1), do: %Pixel{x: x, y: y, color: 0}
+    clearPixels = for x <- 0..(@width - 1), y <- 0..(@height - 1), do: %Pixel{x: x, y: y, color: 2}
     {:noreply, clearPixels ++ state}
   end
 
   defp empty_board() do
-    for _ <- 0..(@width - 1), _ <- 0..(@height - 1), do: 0
+    for _ <- 0..(@width - 1), _ <- 0..(@height - 1), do: 2
   end
 end
