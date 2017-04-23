@@ -16,12 +16,21 @@ place-elixir is a recreation of reddits /r/place in elixir as a side project.
 
 ## Installing dependencies
 
-The first time you start developing you'll need to install some dependencies.
+The first time you start developing you'll need to install some dependencies and
+initialize the database.
+
 You won't need to run these commands every time though.
 
 ```
 npm install
 mix deps.get
+```
+
+```
+docker-compose up -d
+mix ecto.create
+mix ecto.migrate
+docker-compose down
 ```
 
 ## Starting development server
