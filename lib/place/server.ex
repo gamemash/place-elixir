@@ -39,7 +39,8 @@ defmodule Place.Server do
   end
 
   def handle_call(:board, _from, log) do
-    board = log |> Enum.reverse |> Enum.reduce(empty_board(), fn pixel, board ->
+    log = Place.PixelHistoryQueries.get_all
+    board = log |> Enum.reduce(empty_board(), fn pixel, board ->
       List.replace_at(board, pixel.x + pixel.y * @width, pixel.color)
     end)
     {:reply, {:ok, board}, log}
@@ -50,6 +51,9 @@ defmodule Place.Server do
   end
 
   def handle_cast(pixel = %Pixel{}, state) do
+    changeset = Place.PixelHistory.changeset(%Place.PixelHistory{}, %{color: pixel.color, x: pixel.x, y: pixel.y})
+    Place.PixelHistoryQueries.create(changeset)
+
     state = [pixel | state]
     {:noreply, state}
   end
